@@ -16,7 +16,7 @@ div.sidebar {
   text-align: center;
 }
 
-.sidebar-footer {
+div.sidebar-footer {
   position: fixed;
     right: 0;
     bottom: 0;
@@ -25,30 +25,32 @@ div.sidebar {
   background-color: #efefef;
 }
 
-.sidebar-loc {
+div.sidebar-loc {
   position: fixed;
-    top: 40%;
     right: 0;
+    top: 60%;
     bottom: 0;
     left: -0.3%;
   padding: 1rem;
   background-color: #ffffff;
 }
 
-.sidebar-loc i {
+div.sidebar i {
   vertical-align: middle;
 }
 
 .sidebar-section {
-  padding: 15px 0px 10px;
   margin-left: -15px;
   margin-right: -15px;
-  background-color: #f6f6f6;
 }
 
 .logo {
   border: 2px solid black;
   margin: 10px 50px 0px;
+}
+
+.logo a {
+  color: black;
 }
 
 /* main */
@@ -61,4 +63,9 @@ div.sidebar {
 
 #main img {
   width: 100%;
+}
+
+.jumbotron, .form-group {
+  padding-right: 60px;
+  padding-left: 60px;
 }
