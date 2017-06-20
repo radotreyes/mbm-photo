@@ -1,0 +1,66 @@
+/* body */
+@media ( min-width: 767px ) {
+    #navigation {
+        position: fixed;
+        background-color: #f6f6f6;
+    }
+}
+
+body {
+  font-family: 'Merriweather Sans', sans-serif;
+  font-family: 'Inconsolata', monospace;
+}
+
+/* sidebar */
+div.sidebar {
+  text-align: center;
+}
+
+div.sidebar-footer {
+  position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+}
+
+div.sidebar-loc {
+  position: fixed;
+    right: 0;
+    top: 60%;
+    bottom: 0;
+    left: -0.3%;
+  padding: 1rem;
+  background-color: #ffffff;
+}
+
+div.sidebar i {
+  vertical-align: middle;
+}
+
+.sidebar-section {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.logo {
+  border: 2px solid black;
+  margin: 10px 50px 0px;
+}
+
+.logo a {
+  color: black;
+}
+
+/* main */
+#main {
+  padding-right: 0; /*15px in bootstrap.css*/
+  padding-left: 0;  /*idem*/
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#main img {
+  width: 100%;
+}

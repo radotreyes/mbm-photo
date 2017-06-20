@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% extends "test_app/base_styled.html" %}
+{% load staticfiles %}
+
+{% block title_head %}
+  <title>silent: contact</title>
+{% endblock %}
+
+{% block main_body %}
+  <h1>testing test_app/contact/index.html</h1>
+    <div class="jumbotron">
+      <h2>Contact me</h2>
+    </div>
+    <form class="" action="index.html" method="POST">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" class="btn btn-primary" name="" value="Submit">
+    </form><br>
+    <a href="{% url 'test_app:index' %}">go back</a>
+{% endblock %}

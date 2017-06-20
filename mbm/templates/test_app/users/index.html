@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>[ADMIN] userlist</title>
+  </head>
+  <body>
+    <h1>testing test_app/users/index.html</h1>
+    <h2>USERLIST:</h2>
+      <div class="userlist">
+        <ol>
+        {% if users_lname %}
+          {% for usr in users_lname %}
+          <li>{{ usr.lname }}, {{ usr.fname }}</li>
+          <ul>
+            <li><strong>EMAIL:</strong> {{ usr.email }}</li>
+          </ul>
+          {% endfor %}
+
+        {% else %}
+        <p>No user data found.</p>
+
+        {% endif %}
+        </ol>
+      </div>
+    <br>
+    <a href="{% url 'test_app:index' %}">go back</a>
+  </body>
+</html>

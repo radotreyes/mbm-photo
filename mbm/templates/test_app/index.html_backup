@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>silent ·</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> <!-- Bootstrap 3 -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}"> <!-- custom -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- SM Buttons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!-- Google icons -->
+  </head>
+
+  <body>
+    <div class="container-fluid">
+     <div class="row">
+       <div id="navigation" class="sidebar col-lg-2 col-md-3 col-sm-3">
+         <div class="logo">
+           <h2><strong><a href="#">im silent</a></strong></h2>
+         </div>
+         <h5>photography</h5><br><br>
+           <strong><a href="{% url 'test_app:portrait' %}">portrait</a><br><br>
+           <a href="{% url 'test_app:landscape' %}">landscape</a><br><br>
+           <a href="{% url 'test_app:contact' %}">contact me</a><br><br>
+           <a href="{% url 'test_app:users' %}">[ADMIN] userlist</a><br><br><br>
+           <h4 class="sidebar-section"><i class="material-icons">place</i>&nbsp;<strong>TAMPA, FL
+           </strong></h4><br></strong>
+       </div> <!-- NAVIGATION -->
+
+        <div class="sidebar-footer sidebar col-lg-2 col-md-3 col-sm-3">
+          <a href='https://www.facebook.com/profile.php?id=100009468401582'><i class="fa fa-facebook-official" style="font-size:24px"></i></a>&emsp;<a href='https://twitter.com/marymedovich'><i class="fa fa-twitter" style="font-size:24px"></i></a>&emsp;<a href='https://www.instagram.com/marymedovich/'><i class="fa fa-instagram" style="font-size:24px"></i></a>
+        </div> <!-- SIDENAV FOOTER -->
+
+      <div class="col-lg-2 col-md-3 col-sm-3 hidden-xs">
+        <!-- Placeholder - keep empty -->
+      </div>
+
+      <div id="main" class="col-lg-10 col-md-9 col-sm-9">
+        <h2>Access records:</h2>
+          <div class="test">
+            {% if access_records %}
+            <table>
+              <thead>
+                <th>Site Name</th>
+                <th>Date Accessed</th>
+              </thead>
+
+            {% for acc in access_records %}
+            <tr>
+              <td>{{ acc.name }}</td>
+              <td>{{ acc.date }}</td>
+            </tr>
+            {% endfor %}
+
+            </table>
+
+            {% else %}
+            <p>No access records found!</p>
+
+            {% endif %}
+          </div>
+        <!-- <img src="{% static "images/IMG_3236.png" %}" />
+        <img src="{% static "images/IMG_3813.jpg" %}" /> -->
+      </div>
+
+    </div> <!-- ROW -->
+   </div>
+  </body>
+
+</html>
