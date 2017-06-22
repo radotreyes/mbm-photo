@@ -8,5 +8,6 @@ urlpatterns = [
     url( r'portrait/', views.portrait, name = 'portrait' ),
     url( r'landscape/', views.landscape, name = 'landscape' ),
     url( r'contact/', views.contact, name = 'contact' ),
-    url( r'users/', views.users, name = 'users' )
+    url( r'users/', views.users, name = 'users' ),
+    url( r'upload/', views.upload, name = 'upload' ),
 ]
