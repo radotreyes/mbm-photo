@@ -27,7 +27,7 @@ def contact( request ):
         form = forms.UserProfileForm( request.POST )
 
         if form.is_valid():
-            form.save( commit = True )
+            print( 'UPLOADED' )
             return HttpResponseRedirect( '/' )
         else:
             print( "ERR: Form invalid!" )
@@ -59,7 +59,7 @@ def upload( request ):
         form = forms.UserProfileForm( request.POST )
 
         if form.is_valid():
-            form.save( commit = True )
+            print( 'UPLOADED' )
             return HttpResponseRedirect( '/' )
         else:
             print( "ERR: Form invalid!" )

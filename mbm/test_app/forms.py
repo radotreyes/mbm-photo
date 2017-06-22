@@ -14,10 +14,6 @@ class UserAuthForm( forms.ModelForm ):
         model = User
         fields = ( 'username', 'email', 'password' )
 
-class UserProfileForm( forms.ModelForm ):
+class UserProfileForm( forms.Form ):
     website = forms.URLField( required = False )
     picture = forms.ImageField( required = False )
-
-    class Meta:
-        model = UserProfile
-        exclude = ( 'user', )
