@@ -1,5 +1,5 @@
 from django import forms
-from test_app.models import Topic, Webpage, AccessRecord, UserProfile
+from . import models
 from django.contrib.auth.models import User
 from django.core import validators
 
@@ -11,9 +11,11 @@ class UserAuthForm( forms.ModelForm ):
     password = forms.CharField( widget = forms.PasswordInput() )
 
     class Meta():
-        model = User
-        fields = ( 'username', 'email', 'password' )
+        model = models.User
+        fields = ( 'username', 'password' )
 
-class UserProfileForm( forms.Form ):
-    website = forms.URLField( required = False )
-    picture = forms.ImageField( required = False )
+class ImageUploadForm( forms.ModelForm ):
+
+    class Meta():
+        model = models.ImageUpload
+        fields = '__all__'

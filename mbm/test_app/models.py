@@ -23,11 +23,9 @@ class AccessRecord( models.Model ):
     def __str__( self ):
         return str( self.date )
 
-class UserProfile( models.Model ):
-    user = models.OneToOneField( User )
-
-    website = models.URLField( blank = True )
-    picture = models.ImageField( upload_to = 'user_img', blank = True )
+class ImageUpload( models.Model ):
+    title = models.CharField( max_length = 50 )
+    image = models.ImageField( upload_to = 'user_img/', blank = True )
 
     def __str__( self ):
-        return self.user.username
+        return str( self.id )

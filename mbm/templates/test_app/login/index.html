@@ -3,14 +3,15 @@
 {% load staticfiles %}
 
 {% block title_head %}
-  <title>silent: contact</title>
+  <title>silent</title>
 {% endblock %}
 
 {% block main_body %}
-    <form class="" action="index.html" method="POST" enctype="multipart/form-data">
-      {{ form.as_p }}
+  <div class="test">
+    <form class="" action="index.html" method="post">
       {% csrf_token %}
+      {{ form.as_p }}
       <input type="submit" class="btn btn-primary" name="" value="Submit">
-    </form><br>
-    <a href="{% url 'test_app:index' %}">go back</a>
+    </form>
+  </div>
 {% endblock %}

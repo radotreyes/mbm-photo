@@ -16,8 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from test_app import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url( r'^', include( 'test_app.urls', namespace = 'test_app' ) ),
     url( r'^admin/', admin.site.urls )
 ]
+
+if settings.DEBUG is True:
+    urlpatterns += static( settings.MEDIA_URL, document_root = settings.MEDIA_ROOT )

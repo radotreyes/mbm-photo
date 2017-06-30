@@ -1,87 +1,77 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic import View, TemplateView, FormView, ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.base import RedirectView
+from django.utils.decorators import method_decorator
+from django.conf import settings
 
-from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
-from test_app.models import Topic, Webpage, AccessRecord, UserProfile
-from . import forms
+from django.contrib.auth import REDIRECT_FIELD_NAME, login
+from django.contrib.auth.forms import AuthenticationForm
+from django.urls import reverse, reverse_lazy
+from . import forms, models
+
 
 # Create your views here.
-def index( request ):
-    webpages_list = AccessRecord.objects.order_by( 'date' )
-    date_ord = { 'access_records': webpages_list }
-    return render( request, 'test_app/index.html', context = date_ord )
+class Index( TemplateView ):
+    template_name = 'test_app/index.html'
 
-def portrait( request ):
-    return render( request, 'test_app/portrait/index.html' )
+class Portrait( ListView ):
+    template_name = 'test_app/portrait/index.html'
+    context_object_name = "image_uploads"
+    model = models.ImageUpload
 
-def landscape( request ):
-    return render( request, 'test_app/landscape/index.html' )
+class Landscape( TemplateView ):
+    template_name = 'test_app/landscape/index.html'
 
-def contact( request ):
-    form = forms.UserProfileForm()
+class Login( FormView ):
+    template_name = 'test_app/login/index.html'
 
-    if request.method == 'POST':
-        form = forms.UserProfileForm( request.POST )
+    form_class = AuthenticationForm
+    redirect_field_name = REDIRECT_FIELD_NAME
+    success_url = settings.LOGIN_REDIRECT_URL
 
-        if form.is_valid():
-            print( 'UPLOADED' )
-            return HttpResponseRedirect( '/' )
-        else:
-            print( "ERR: Form invalid!" )
-
-    return render( request, 'test_app/contact/index.html', { 'form': form } )
-
-def users( request ):
-    form = forms.UserAuthForm()
-    loggedin = False
-
-    if request.method == 'POST':
-        form = forms.UserAuthForm( request.POST )
-
-        if form.is_valid():
-            user = form.save() # save form data to user
-            user.set_password( user.password ) # set user password
-            user.save() # register the user
-            loggedin = True
-            return HttpResponseRedirect( '/' )
-        else:
-            print( "ERR: Form invalid!" )
-
-    return render( request, 'test_app/users/index.html', { 'form': form } )
-
-def upload( request ):
-    form = forms.UserProfileForm()
-
-    if request.method == 'POST':
-        form = forms.UserProfileForm( request.POST )
-
-        if form.is_valid():
-            print( 'UPLOADED' )
-            return HttpResponseRedirect( '/' )
-        else:
-            print( "ERR: Form invalid!" )
-
-    return render( request, 'test_app/upload/index.html', { 'form': form } )
-
-def user_login( request ):
-    if request.method == 'POST':
-        username = request.POST.get( 'username' )
-        password = request.POST.get( 'password' )
-
+    def form_valid( self, form ):
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
         user = authenticate( username = username, password = password )
 
-        if user:
-            if user.is_active():
-                login( request, user )
-                return HttpResponseRedirect( reverse( 'index' ) )
-
-            else:
-                return HttpResponse( 'Account not active.' )
-
+        if user is not None and user.is_active:
+            login( self.request, user )
+            return super( Login, self ).form_valid( form )
         else:
-            print( 'Failed login:' )
-            print( 'Username: {}\nPassword: {}'.format( username, password ) )
-            return HttpResponse( 'Invalid account info.' )
+            return self.form_invalid( form )
+
+class Logout( RedirectView ):
+    url = settings.LOGIN_REDIRECT_URL
+
+    @method_decorator( login_required )
+    def get( self, request, *args, **kwargs ):
+        logout( request )
+        return super( Logout, self ).get( request, *args, **kwargs )
+
+class Upload( CreateView ):
+    form_class = forms.ImageUploadForm
+    success_url = reverse_lazy( 'test_app:index' )
+
+    # def form_valid(self, form):
+    #     isvalid = super( Upload, self ).form_valid( form )
+    #
+    #     if self.request.FILES.get( 'image' ):
+    #         m = ImageUpload.objects.get_or_create( image = image )[0]
+    #         m.image = form.cleaned_data['image']
+    #         m.save()
+    #
+    #         return isvalid
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super( Upload, self ).get_context_data( **kwargs )
+    #
+    #     return context
+
+    @method_decorator( login_required )
+    def dispatch( self, request, *args, **kwargs ):
+        return super( Upload, self ).dispatch( request, *args, **kwargs )
