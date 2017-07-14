@@ -6,5 +6,5 @@ Photography portfolio website. Designed front-end with Bootstrap, jQuery. Django
 ### About:
 Mary Medovich (Instagram: @imsilentphotography) is a freelance photographer based out of Tampa, FL.
 
-![mbm-photo](https://pbs.twimg.com/media/DCBXc-fUQAA_fVO.jpg)
+![mbm-photo](http://i.imgur.com/FqDzoqR.jpg)
 
