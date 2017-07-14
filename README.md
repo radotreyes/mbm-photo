@@ -1,8 +1,10 @@
-# MBM Photography
+# I'm Silent Photography
 
 ## Summary:
-A photography portfolio website built using Bootstrap. Django and django CMS as backend frameworks (tentative). 
+Photography portfolio website. Designed front-end with Bootstrap, jQuery. Django back-end to handle and serve media uploads based on category and sorting fields, forgoing pre-built CMS.
 
 ### About:
 Mary Medovich (Instagram: @imsilentphotography) is a freelance photographer based out of Tampa, FL.
+
+![mbm-photo](https://pbs.twimg.com/media/DCBXc-fUQAA_fVO.jpg)
 
