@@ -26,7 +26,8 @@
            <a href="#">contact me</a><br><br>
            {% if user.is_authenticated %}
               <br><p>hello, {{ user.username }}</p>
-              <a href="{% url 'test_app:logout' %}" class="btn btn-default navbar-btn">logout</a><br>
+              <a href="{% url 'test_app:upload' %}" class="btn btn-default navbar-btn">upload</a>&nbsp;
+              <a href="{% url 'test_app:logout' %}" class="btn btn-warning navbar-btn">logout</a><br>
               {% endif %}<br><br>
            <h4 class="sidebar-section"><i class="material-icons">place</i>&nbsp;<strong>TAMPA, FL
            </strong></h4><br></strong>

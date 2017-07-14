@@ -125,9 +125,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Login redirect url
-LOGIN_REDIRECT_URL = '/'
+# Message engine
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
+# Redirect urls
+LOGIN_REDIRECT_URL = '/'
+UPLOAD_SUCCESS_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/

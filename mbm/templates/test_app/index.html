@@ -7,8 +7,11 @@
 {% endblock %}
 
 {% block main_body %}
-  <div class="test">
-    <img src="{% static "images/IMG_3236.png" %}" />
-    <img src="{% static "images/IMG_3813.jpg" %}" />
-  </div>
+  {% for image in images %}
+    {% if image.frontpage %}
+      <a href="{% url 'test_app:update' image.id %}" class="frontpage">
+        <img src="/media/{{ image.image }}" alt="...">
+      </a>
+    {% endif %}
+  {% endfor %}
 {% endblock %}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends "test_app/base_styled.html" %}
+{% load staticfiles %}
+
+{% block title_head %}
+  <title>silent: {{ title }}</title>
+{% endblock %}
+
+{% block main_body %}
+  <div class="container-fluid">
+    <p>DEBUG: obj: {{ image }}</p>
+    <h2>update photo:</h2>
+    <div class="col-xs-6">
+      <a href="#" class="thumbnail">
+        <img src="/media/{{ image.image }}" alt="...">
+      </a>
+    </div>
+
+    <div class="col-xs-6">
+      <form class="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+         <p><input type="submit" class="btn btn-primary" name="" value="Submit">&nbsp;<a href="{% url 'test_app:delete' image.id %}"><button type="button" class="btn btn-danger">Delete</button></a></p>
+      </form>
+    </div>
+  </div>
+{% endblock %}

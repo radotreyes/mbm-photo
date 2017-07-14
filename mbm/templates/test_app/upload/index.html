@@ -3,11 +3,11 @@
 {% load staticfiles %}
 
 {% block title_head %}
-  <title>silent: contact</title>
+  <title>silent: new post</title>
 {% endblock %}
 
 {% block main_body %}
-    <form class="" action="index.html" method="POST" enctype="multipart/form-data">
+    <form class="" method="POST" enctype="multipart/form-data">
       {{ form.as_p }}
       {% csrf_token %}
       <input type="submit" class="btn btn-primary" name="" value="Submit">

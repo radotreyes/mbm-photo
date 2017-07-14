@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import View, TemplateView, FormView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.base import RedirectView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.decorators import method_decorator
 from django.conf import settings
 
@@ -14,19 +15,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse, reverse_lazy
 from . import forms, models
 
-
 # Create your views here.
-class Index( TemplateView ):
-    template_name = 'test_app/index.html'
-
-class Portrait( ListView ):
-    template_name = 'test_app/portrait/index.html'
-    context_object_name = "image_uploads"
-    model = models.ImageUpload
-
-class Landscape( TemplateView ):
-    template_name = 'test_app/landscape/index.html'
-
 class Login( FormView ):
     template_name = 'test_app/login/index.html'
 
@@ -53,25 +42,136 @@ class Logout( RedirectView ):
         logout( request )
         return super( Logout, self ).get( request, *args, **kwargs )
 
-class Upload( CreateView ):
-    form_class = forms.ImageUploadForm
-    success_url = reverse_lazy( 'test_app:index' )
+class Index( ListView ):
+    template_name = 'test_app/index.html'
+    model = models.ImageUpload
 
-    # def form_valid(self, form):
-    #     isvalid = super( Upload, self ).form_valid( form )
-    #
-    #     if self.request.FILES.get( 'image' ):
-    #         m = ImageUpload.objects.get_or_create( image = image )[0]
-    #         m.image = form.cleaned_data['image']
-    #         m.save()
-    #
-    #         return isvalid
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super( Upload, self ).get_context_data( **kwargs )
-    #
-    #     return context
+    def get_context_data( self, **kwargs ):
+        '''
+        Sets or retrieves context data to be injected.
+        NOTE: URL information is stored in kwargs, so anything needed from a url can be retrieved from there.
+        '''
+        image_objects = self.model.objects.order_by( 'id' ) # all objects in ImageUpload model
+
+        data = super().get_context_data( **kwargs )
+        data['images'] = image_objects
+        return data
+
+class Gallery( ListView ):
+    # to be inherited
+    template_name = 'test_app/gallery.html'
+    model = models.ImageUpload
+
+    # to be overwritten
+    page_title = 'gallery'
+    category = None
+
+    def get_context_data( self, **kwargs ):
+        '''
+        Sets or retrieves context data to be injected.
+        NOTE: URL information is stored in kwargs, so anything needed from a url can be retrieved from there.
+        '''
+        title = self.page_title
+        image_objects = self.model.objects.order_by( 'id' ) # all objects in ImageUpload model
+        category = self.category
+
+        data = super().get_context_data( **kwargs )
+        data['title'] = title
+        data['images'] = image_objects
+        data['category'] = category
+        return data
+
+class ImageCreate( CreateView ):
+    form_class = forms.ImageUploadForm
+    template_name = 'test_app/upload/index.html'
+    success_url = settings.UPLOAD_SUCCESS_URL
+    # success_message = 'Image uploaded!'
+
+    def form_valid( self, form ):
+        form.instance.user = self.request.user
+        return super( ImageCreate, self ).form_valid( form )
 
     @method_decorator( login_required )
     def dispatch( self, request, *args, **kwargs ):
-        return super( Upload, self ).dispatch( request, *args, **kwargs )
+        return super( ImageCreate, self ).dispatch( request, *args, **kwargs )
+
+class ImageUpdate( UpdateView ):
+    template_name = 'test_app/img/details.html'
+    fields = ( 'title', 'category', 'frontpage')
+    model = models.ImageUpload
+
+    def get_success_url( self, **kwargs ):
+        image = self.model.objects.filter( pk =           self.kwargs['pk'] ).values()[0]
+        if image['category'] == 'portrait':
+            print( 'portrait' )
+            return reverse_lazy( 'test_app:portrait' )
+        elif image['category'] == 'landscape':
+            print( 'landscape' )
+            return reverse_lazy( 'test_app:landscape' )
+        else:
+            print( 'default' )
+            return reverse_lazy( 'test_app:index' )
+
+    def get_context_data( self, **kwargs ):
+        '''
+        Sets or retrieves context data to be injected.
+        NOTE: URL information is stored in kwargs, so anything needed from a url can be retrieved from there.
+        '''
+        title = 'edit'
+        image = self.model.objects.filter( pk =           self.kwargs['pk'] ).values()[0]
+
+        data = super().get_context_data( **kwargs )
+        data['title'] = title
+        data['image'] = image
+        return data
+
+    def form_valid( self, form ):
+        form.instance.user = self.request.user
+        return super( ImageUpdate, self ).form_valid( form )
+
+    @method_decorator( login_required )
+    def dispatch( self, request, *args, **kwargs ):
+        return super( ImageUpdate, self ).dispatch( request, *args, **kwargs )
+
+class ImageSuccess( TemplateView ):
+    template_name = 'test_app/upload/success.html'
+    fields = ( 'title', 'category', 'frontpage')
+    model = models.ImageUpload
+
+    @method_decorator( login_required )
+    def dispatch( self, request, *args, **kwargs ):
+        return super( ImageSuccess, self ).dispatch( request, *args, **kwargs )
+
+class ImageDelete( DeleteView ):
+    template_name = 'test_app/img/delete.html'
+    fields = ( 'title', 'category', 'frontpage' )
+    model = models.ImageUpload
+
+    def get_success_url( self, **kwargs ):
+        image = self.model.objects.filter( pk =           self.kwargs['pk'] ).values()[0]
+        if image['category'] == 'portrait':
+            print( 'portrait' )
+            return reverse_lazy( 'test_app:portrait' )
+        elif image['category'] == 'landscape':
+            print( 'landscape' )
+            return reverse_lazy( 'test_app:landscape' )
+        else:
+            print( 'default' )
+            return reverse_lazy( 'test_app:index' )
+
+    def get_context_data( self, **kwargs ):
+        '''
+        Sets or retrieves context data to be injected.
+        NOTE: URL information is stored in kwargs, so anything needed from a url can be retrieved from there.
+        '''
+        title = 'edit'
+        image = self.model.objects.filter( pk =           self.kwargs['pk'] ).values()[0]
+
+        data = super().get_context_data( **kwargs )
+        data['title'] = title
+        data['image'] = image
+        return data
+
+    @method_decorator( login_required )
+    def dispatch( self, request, *args, **kwargs ):
+        return super( ImageDelete, self ).dispatch( request, *args, **kwargs )
