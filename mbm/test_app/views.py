@@ -17,11 +17,18 @@ from . import forms, models
 
 # Create your views here.
 class Login( FormView ):
+    title = 'login'
     template_name = 'test_app/login/index.html'
-
     form_class = AuthenticationForm
     redirect_field_name = REDIRECT_FIELD_NAME
     success_url = settings.LOGIN_REDIRECT_URL
+
+    def get_context_data( self, **kwargs ):
+        title = self.title
+
+        data = super().get_context_data( **kwargs )
+        data['title'] = title
+        return data
 
     def form_valid( self, form ):
         username = form.cleaned_data['username']
@@ -42,7 +49,55 @@ class Logout( RedirectView ):
         logout( request )
         return super( Logout, self ).get( request, *args, **kwargs )
 
+class About( TemplateView ):
+    title = 'about'
+    template_name = 'test_app/about.html'
+
+    def get_context_data( self, **kwargs ):
+        title = self.title
+
+        data = super().get_context_data( **kwargs )
+        data['title'] = title
+        return data
+
+        template_name = 'test_app/img/details.html'
+        fields = ( 'title', 'category', 'frontpage')
+        model = models.ImageUpload
+    #
+    # def get_success_url( self, **kwargs ):
+    #     image = self.model.objects.filter( pk = self.kwargs['pk'] ).values()[0]
+    #     if image['category'] == 'portrait':
+    #         print( 'portrait' )
+    #         return reverse_lazy( 'test_app:portrait' )
+    #     elif image['category'] == 'landscape':
+    #         print( 'landscape' )
+    #         return reverse_lazy( 'test_app:landscape' )
+    #     else:
+    #         print( 'default' )
+    #         return reverse_lazy( 'test_app:index' )
+    #
+    # def get_context_data( self, **kwargs ):
+    #     '''
+    #     Sets or retrieves context data to be injected.
+    #     NOTE: URL information is stored in kwargs, so anything needed from a url can be retrieved from there.
+    #     '''
+    #     image = self.model.objects.filter( pk =           self.kwargs['pk'] ).values()[0]
+    #     title = image['title']
+    #
+    #     data = super().get_context_data( **kwargs )
+    #     data['title'] = title
+    #     data['image'] = image
+    #     data['loggedin'] = self.request.user.is_authenticated
+    #     return data
+    #
+    # def form_valid( self, form ):
+    #     form.instance.user = self.request.user
+    #     return super( ImageUpdate, self ).form_valid( form )
+
+# class AboutUpdate( UpdateView ):
+
 class Index( ListView ):
+    title = 'home'
     template_name = 'test_app/index.html'
     model = models.ImageUpload
 
@@ -51,9 +106,11 @@ class Index( ListView ):
         Sets or retrieves context data to be injected.
         NOTE: URL information is stored in kwargs, so anything needed from a url can be retrieved from there.
         '''
+        title = self.title
         image_objects = self.model.objects.order_by( 'id' ) # all objects in ImageUpload model
 
         data = super().get_context_data( **kwargs )
+        data['title'] = title
         data['images'] = image_objects
         return data
 
@@ -63,7 +120,7 @@ class Gallery( ListView ):
     model = models.ImageUpload
 
     # to be overwritten
-    page_title = 'gallery'
+    title = 'gallery'
     category = None
 
     def get_context_data( self, **kwargs ):
@@ -71,7 +128,7 @@ class Gallery( ListView ):
         Sets or retrieves context data to be injected.
         NOTE: URL information is stored in kwargs, so anything needed from a url can be retrieved from there.
         '''
-        title = self.page_title
+        title = self.title
         image_objects = self.model.objects.order_by( 'id' ) # all objects in ImageUpload model
         category = self.category
 
@@ -82,10 +139,17 @@ class Gallery( ListView ):
         return data
 
 class ImageCreate( CreateView ):
+    title = 'new'
     form_class = forms.ImageUploadForm
     template_name = 'test_app/upload/index.html'
     success_url = settings.UPLOAD_SUCCESS_URL
     # success_message = 'Image uploaded!'
+
+    def get_context_data( self, **kwargs ):
+        title = self.title
+
+        data['title'] = title
+        return data
 
     def form_valid( self, form ):
         form.instance.user = self.request.user
@@ -101,7 +165,7 @@ class ImageUpdate( UpdateView ):
     model = models.ImageUpload
 
     def get_success_url( self, **kwargs ):
-        image = self.model.objects.filter( pk =           self.kwargs['pk'] ).values()[0]
+        image = self.model.objects.filter( pk = self.kwargs['pk'] ).values()[0]
         if image['category'] == 'portrait':
             print( 'portrait' )
             return reverse_lazy( 'test_app:portrait' )
@@ -117,21 +181,18 @@ class ImageUpdate( UpdateView ):
         Sets or retrieves context data to be injected.
         NOTE: URL information is stored in kwargs, so anything needed from a url can be retrieved from there.
         '''
-        title = 'edit'
         image = self.model.objects.filter( pk =           self.kwargs['pk'] ).values()[0]
+        title = image['title']
 
         data = super().get_context_data( **kwargs )
         data['title'] = title
         data['image'] = image
+        data['loggedin'] = self.request.user.is_authenticated
         return data
 
     def form_valid( self, form ):
         form.instance.user = self.request.user
         return super( ImageUpdate, self ).form_valid( form )
-
-    @method_decorator( login_required )
-    def dispatch( self, request, *args, **kwargs ):
-        return super( ImageUpdate, self ).dispatch( request, *args, **kwargs )
 
 class ImageSuccess( TemplateView ):
     template_name = 'test_app/upload/success.html'
@@ -164,8 +225,8 @@ class ImageDelete( DeleteView ):
         Sets or retrieves context data to be injected.
         NOTE: URL information is stored in kwargs, so anything needed from a url can be retrieved from there.
         '''
-        title = 'edit'
         image = self.model.objects.filter( pk =           self.kwargs['pk'] ).values()[0]
+        title = image['title']
 
         data = super().get_context_data( **kwargs )
         data['title'] = title

@@ -2,14 +2,11 @@
 {% extends "test_app/base_styled.html" %}
 {% load staticfiles %}
 
-{% block title_head %}
-  <title>silent: {{ title }}</title>
-{% endblock %}
-
 {% block main_body %}
   <div class="container-fluid">
-    <p>DEBUG: obj: {{ image }}</p>
-    <h2>update photo:</h2>
+    <h2>DEBUG</h2>
+    <p>obj: {{ image }}</p>
+    <p>logged in: {{ loggedin }}</p>
     <div class="col-xs-6">
       <a href="#" class="thumbnail">
         <img src="/media/{{ image.image }}" alt="...">
@@ -17,11 +14,33 @@
     </div>
 
     <div class="col-xs-6">
-      <form class="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-         <p><input type="submit" class="btn btn-primary" name="" value="Submit">&nbsp;<a href="{% url 'test_app:delete' image.id %}"><button type="button" class="btn btn-danger">Delete</button></a></p>
-      </form>
+      {% if loggedin %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3><em>update this image</em></h3>
+        </div>
+        <div class="panel-body">
+          <form class="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+             <p><input type="submit" class="btn btn-primary" name="" value="Submit">&nbsp;<a href="{% url 'test_app:delete' image.id %}"><button type="button" class="btn btn-danger">Delete</button></a></p>
+          </form>
+        </div>
+      </div>
+
+      {% else %}
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3><strong><em>{{ image.title }}</em></strong></h3>
+          </div>
+          <div class="panel-body">
+            <p><em>date:</em></p>
+            <p><em>location:</em></p>
+            <p><em>shot with:</em></p>
+          </div>
+        </div>
+      {% endif %}
     </div>
   </div>
 {% endblock %}

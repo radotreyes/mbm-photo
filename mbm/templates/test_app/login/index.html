@@ -2,16 +2,22 @@
 {% extends "test_app/base_styled.html" %}
 {% load staticfiles %}
 
-{% block title_head %}
-  <title>silent: portraits</title>
-{% endblock %}
-
 {% block main_body %}
-  <div class="test">
+<div class="row">
+  <br><br><br><br>
+</div>
+  <div class="col-xs-4 col-xs-offset-4">
     <form class="" action="index.html" method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" class="btn btn-primary" name="" value="Submit">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <em>login</em>
+        </div>
+        <div class="panel-body">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" class="btn btn-primary" name="" value="Submit">
+        </div>
+      </div>
     </form>
   </div>
 {% endblock %}

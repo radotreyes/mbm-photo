@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    {% block title_head %}
-    {% endblock %}
+    <title>silent: {{ title }}</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> <!-- Bootstrap 3 -->
     <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}"> <!-- custom -->
@@ -23,7 +22,7 @@
            <strong>
            <a href="{% url 'test_app:portrait' %}">portrait</a><br><br>
            <a href="{% url 'test_app:landscape' %}">landscape</a><br><br>
-           <a href="#">contact me</a><br><br>
+           <a href="{% url 'test_app:about' %}">about me</a><br><br>
            {% if user.is_authenticated %}
               <br><p>hello, {{ user.username }}</p>
               <a href="{% url 'test_app:upload' %}" class="btn btn-default navbar-btn">upload</a>&nbsp;

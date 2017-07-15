@@ -11,6 +11,15 @@ body {
   font-family: 'Inconsolata', monospace;
 }
 
+/* bootstrap */
+/*.col-xs-6 .col-md-4 {
+    padding: 0;
+}
+
+.col-xs-6 a {
+    margin-bottom: 0;
+}*/
+
 /* sidebar */
 div.sidebar {
   text-align: center;
