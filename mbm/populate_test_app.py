@@ -6,35 +6,50 @@ django.setup()
 
 ## FAKE POPULATION SCRIPT
 import random
-from test_app.models import AccessRecord, Webpage, Topic
+from test_app import models
 from faker import Faker
 
 fakegen = Faker()
 topics = [ 'Search', 'Social', 'Marketplace', 'News', 'Games' ]
 
-def add_topic():
-    t = Topic.objects.get_or_create( tpc_name = random.choice( topics ))[0]
-    t.save()
-    return t
+# def add_topic():
+#     t = Topic.objects.get_or_create( tpc_name = random.choice( topics ))[0]
+#     t.save()
+#     return t
 
-def populate( n = 5 ):
-    for entry in range( n ):
-        # get topic for entry
-        tpc = add_topic()
 
-        # create fake data for that entry
-        fake_url = fakegen.url()
-        fake_date = fakegen.date()
-        fake_name = fakegen.company()
-        fake_email = fakegen.email()
+models.ImageUpload.objects.all().delete()
 
-        # create webpage for entry
-        webpg = Webpage.objects.get_or_create( topic = tpc, name = fake_name, url = fake_url )[0]
-
-        # create fake access record
-        arec = AccessRecord.objects.get_or_create( name = webpg, date = fake_date )[0]
-
-if __name__ == '__main__':
-    print( 'Populating...' )
-    populate( 20 )
-    print( 'Models populated.' )
+# def get_image_uploads():
+#     iu = models.ImageUpload.objects.all().values()[0]
+#     print( type( iu ) )
+#     # entries = [ entry for n in iu ]
+#     # dates = models.ImageUpload.objects.values( 'date' )[0]
+#     # print( entries )
+#     # return entries
+#
+# get_image_uploads()
+#
+# def populate():
+#
+#     for entry in fields:
+#         # get topic for entry
+#         # tpc = add_topic()
+#
+#         # create fake data for that entry
+#         fake_date = fakegen.date()
+#
+#         # fake_url = fakegen.url()
+#         # fake_name = fakegen.company()
+#         # fake_email = fakegen.email()
+#         #
+#         # # create webpage for entry
+#         # webpg = Webpage.objects.get_or_create( topic = tpc, name = fake_name, url = fake_url )[0]
+#         #
+#         # # create fake access record
+#         # arec = AccessRecord.objects.get_or_create( name = webpg, date = fake_date )[0]
+#
+# if __name__ == '__main__':
+#     print( 'Populating...' )
+#     populate( 20 )
+#     print( 'Models populated.' )

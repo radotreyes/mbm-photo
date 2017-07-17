@@ -11,15 +11,6 @@ body {
   font-family: 'Inconsolata', monospace;
 }
 
-/* bootstrap */
-/*.col-xs-6 .col-md-4 {
-    padding: 0;
-}
-
-.col-xs-6 a {
-    margin-bottom: 0;
-}*/
-
 /* sidebar */
 div.sidebar {
   text-align: center;
@@ -64,8 +55,8 @@ div.sidebar i {
 
 /* main */
 #main {
-  padding-right: 0; /*15px in bootstrap.css*/
-  padding-left: 0;  /*idem*/
+  padding-right: 0;
+  padding-left: 0;
   margin-right: auto;
   margin-left: auto;
 }
@@ -74,6 +65,56 @@ div.sidebar i {
   width: 100%;
 }
 
+#main .gallery-fluid {
+  padding: 0;
+}
+
 .frontpage {
   width: 100%;
+}
+
+.no-gutter {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+*, *:before, *:after {
+  box-sizing:  border-box !important;
+}
+
+.masonry-grid {
+ -moz-column-width: 25em;
+ -webkit-column-width: 25em;
+ -moz-column-gap: .15em;
+ -webkit-column-gap: .15em;
+}
+
+.masonry-item {
+  display: inline-block;
+  padding-left: .1em;
+  padding-right: .1em;
+  width: 100%;
+
+  /* don't clip hovered images */
+  overflow: hidden;
+}
+
+.masonry-well {
+  position: relative;
+  display: block;
+  transition: .333s ease;
+
+  /* don't break container on zoom */
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  -o-column-break-inside: avoid;
+  -ms-column-break-inside: avoid;
+  break-inside: avoid;
+  -webkit-backface-visibility: hidden;
+}
+
+.masonry-well:hover {
+  opacity: 0.5;
+  height: 110%;
+  transform: scale( 1.1 );
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% extends "test_app/base_styled.html" %}
+{% load staticfiles %}
+
+{% block main_body %}
+  <div class="masonry-grid">
+    {% for image in images %}
+      {% if image.category == category %}
+      <div class="masonry-item">
+        <div class="masonry-well no-gutter">
+            <div class="">
+              <a href="{% url 'test_app:update' image.id %}">
+                <img class="gallery" src="/media/{{ image.image }}" alt="...">
+              </a>
+            </div>
+        </div> <!-- col-xs-6 col-md-4 -->
+      </div>
+
+      {% endif %}
+    {% endfor %}
+  </div>
+
+{% endblock %}

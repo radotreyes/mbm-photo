@@ -7,13 +7,17 @@
 {% endblock %}
 
 {% block main_body %}
-  <div class="container-fluid">
-    <h2>delete photo:</h2>
+  <div class="container-fluid col-xs-8 col-xs-offset-2">
+    <div class="page-header">
+      <h1>Delete photo</h1>
+    </div>
+
     <div class="col-xs-6">
       <a href="#" class="thumbnail">
         <img src="/media/{{ image.image }}" alt="...">
       </a>
     </div>
+
     <div class="col-xs-6">
       <h3>Delete this photo?</h3>
       <form class="" method="post">

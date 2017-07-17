@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% extends "test_app/base_styled.html" %}
+{% load staticfiles %}
+
+{% block main_body %}
+<div class="row">
+  <br><br>
+</div>
+  <div class="container-fluid">
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="jumbotron col-xs-6">
+        <h2>Mary Medovich<br>&emsp;
+        <small><em>i'm silent</em> photography</small></h2>
+        <br>
+        <a href="#" class="thumbnail"><img src="/media/{{ profile.ppic }}" alt=""></a>
+      </div>
+
+      <div class="col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <small>WHO AM I?</small>
+          </div>
+          <div class="panel-body">
+            <p>{{ profile.desc }}</p>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <small>FIND ME ON SOCIAL MEDIA:</small>
+          </div>
+          <div class="panel-body">
+            <table class="table-condensed">
+              <tr><td><small><a href='{{ profile.fb }}'><i class="fa fa-facebook-official" style="font-size:24px"></i></a></small></td>
+                  <td>{{ profile.fb_handle }}</td>
+              </tr>
+              <tr><td><small><a href='{{ profile.ig }}'><i class="fa fa-instagram" style="font-size:24px"></i></a></small></td>
+                  <td>{{ profile.ig_handle }}</td>
+              </tr>
+              <tr><td><small><a href='{{ profile.tw }}'><i class="fa fa-twitter" style="font-size:24px"></i></a></small></td>
+                  <td>{{ profile.tw_handle }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <small>FIND ME IN GENERAL:</small>
+          </div>
+          <div class="panel-body">
+            <button type="button" class="btn btn-primary"><small>RESUME/CV</small></button>
+            <a href="{% url 'test_app:email' %}"><button type="button" class="btn btn-default"><small>CONTACT ME</small></button></a>
+            <button type="button" class="btn btn-default"><small>SITE INFO</small></small></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

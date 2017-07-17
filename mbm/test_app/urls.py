@@ -6,6 +6,7 @@ app_name = 'test_app'
 urlpatterns = [
     url( r'^$', views.Index.as_view(), name = 'index' ),
     url( r'^about/$', views.About.as_view(), name = 'about' ),
+    url( r'^email/$', views.Email.as_view(), name = 'email' ),
     url( r'^portrait/', views.Gallery.as_view( title = 'portrait', category = 'portrait' ), name = 'portrait' ),
     url( r'^landscape/', views.Gallery.as_view( title = 'landscape', category = 'landscape' ), name = 'landscape' ),
     url( r'^img/new/$', views.ImageCreate.as_view(), name = 'upload' ),

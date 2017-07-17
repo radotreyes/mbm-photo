@@ -5,10 +5,41 @@
     <meta charset="utf-8">
     <title>silent: {{ title }}</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> <!-- Bootstrap 3 -->
-    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}"> <!-- custom -->
-    <link rel="stylesheet"ba href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- SM Buttons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!-- Google icons -->
+    <!-- BOOTSTRAP 3 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- CUSTOM STYLESHEET -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+
+    <!-- SM BUTTONS -->
+    <link rel="stylesheet"ba href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- GOOGLE ICONS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- DATE PICKER WIDGET -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--
+    <script src="{% static "js/masonry.pkgd.min.js" %}"></script>
+    <script src="{% static "js/imagesloaded.pkgd.min.js" %}"></script>
+  -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      $( function() {
+        $( "#datepicker" ).datepicker();
+      } );
+
+      // var $container = $( '.masonry-grid' );
+      //   $container.imagesLoaded( function () {
+      //     $container.masonry( {
+      //       columnWidth: '.grid-item',
+      //       itemSelector: '.grid-item',
+      //       percentPosition: true
+      //     });
+      //   });
+    </script>
   </head>
 
   <body>
@@ -33,22 +64,18 @@
        </div> <!-- NAVIGATION -->
 
         <div class="sidebar-footer sidebar col-lg-2 col-md-3 col-sm-3">
-          <a href='https://www.facebook.com/profile.php?id=100009468401582'><i class="fa fa-facebook-official" style="font-size:24px"></i></a>&emsp;<a href='https://twitter.com/marymedovich'><i class="fa fa-twitter" style="font-size:24px"></i></a>&emsp;<a href='https://www.instagram.com/marymedovich/'><i class="fa fa-instagram" style="font-size:24px"></i></a>
+          <a href='{{ profile.fb }}'><i class="fa fa-facebook-official" style="font-size:24px"></i></a>&emsp;<a href='{{ profile.ig }}'><i class="fa fa-instagram" style="font-size:24px"></i></a>&emsp;<a href='{{ profile.tw }}'><i class="fa fa-twitter" style="font-size:24px"></i></a>
         </div> <!-- SIDENAV FOOTER -->
 
-      <div class="col-lg-2 col-md-3 col-sm-3 hidden-xs">
-        <!-- Placeholder - keep empty -->
-      </div>
+        <div class="col-lg-2 col-md-3 col-sm-3 hidden-xs">
+          <!-- Placeholder - keep empty -->
+        </div>
 
-      <div id="main" class="col-lg-10 col-md-9 col-sm-9">
-        {% block main_body %}
-        {% endblock %}
-        <!-- <img src="{% static "images/IMG_3236.png" %}" />
-        <img src="{% static "images/IMG_3813.jpg" %}" /> -->
-      </div>
-
+        <div id="main" class="col-lg-10 col-md-9 col-sm-9">
+          {% block main_body %}
+          {% endblock %}
+        </div>
     </div> <!-- ROW -->
    </div>
   </body>
-
 </html>
