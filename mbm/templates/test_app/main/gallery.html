@@ -6,15 +6,30 @@
   <div class="masonry-grid">
     {% for image in images %}
       {% if image.category == category %}
-      <div class="masonry-item">
-        <div class="masonry-well no-gutter">
+        <div class="masonry-item">
+          <div class="masonry-well no-gutter">
             <div class="">
-              <a href="{% url 'test_app:update' image.id %}">
+              <a href="#image-{{ image.id }}" data-toggle="modal">
                 <img class="gallery" src="/media/{{ image.image }}" alt="...">
               </a>
             </div>
-        </div> <!-- col-xs-6 col-md-4 -->
-      </div>
+          </div> <!-- col-xs-6 col-md-4 -->
+        </div>
+
+        <div id="image-{{ image.id }}" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <img class="gallery" src="/media/{{ image.image }}" alt="...">
+              </div>
+              <div class="modal-footer">
+                <a href="{% url 'test_app:update' image.id %}">
+                  <button type="button" class="btn btn-primary"><small>MORE</small></button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
 
       {% endif %}
     {% endfor %}

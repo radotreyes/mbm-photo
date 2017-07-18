@@ -4,48 +4,44 @@
   <head>
     <meta charset="utf-8">
     <title>silent: {{ title }}</title>
-    <!-- Latest compiled and minified CSS -->
-    <!-- BOOTSTRAP 3 -->
+
+    <!-- Bootstrap 3 -->
+    <!-- CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- CUSTOM STYLESHEET -->
-    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
-
-    <!-- SM BUTTONS -->
-    <link rel="stylesheet"ba href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- GOOGLE ICONS -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!-- DATE PICKER WIDGET -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!--
-    <script src="{% static "js/masonry.pkgd.min.js" %}"></script>
-    <script src="{% static "js/imagesloaded.pkgd.min.js" %}"></script>
-  -->
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+
+    <!-- SM buttons -->
+    <link rel="stylesheet"ba href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Google icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Date picker-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script>
       $( function() {
         $( "#datepicker" ).datepicker();
       } );
-
-      // var $container = $( '.masonry-grid' );
-      //   $container.imagesLoaded( function () {
-      //     $container.masonry( {
-      //       columnWidth: '.grid-item',
-      //       itemSelector: '.grid-item',
-      //       percentPosition: true
-      //     });
-      //   });
     </script>
   </head>
 
   <body>
+    <!-- Full sidebar -->
     <div class="container-fluid">
-     <div class="row">
-       <div id="navigation" class="sidebar col-lg-2 col-md-3 col-sm-3">
+      <div class="row">
+
+       <!-- Main section -->
+        <div id="navigation" class="sidebar col-lg-2 col-md-3 col-sm-3">
          <div class="logo">
            <h2><strong><a href="{% url 'test_app:index' %}">im silent</a></strong></h2>
          </div>
@@ -61,21 +57,27 @@
               {% endif %}<br><br>
            <h4 class="sidebar-section"><i class="material-icons">place</i>&nbsp;<strong>TAMPA, FL
            </strong></h4><br></strong>
-       </div> <!-- NAVIGATION -->
+        </div>
 
+       <!-- Footer -->
         <div class="sidebar-footer sidebar col-lg-2 col-md-3 col-sm-3">
-          <a href='{{ profile.fb }}'><i class="fa fa-facebook-official" style="font-size:24px"></i></a>&emsp;<a href='{{ profile.ig }}'><i class="fa fa-instagram" style="font-size:24px"></i></a>&emsp;<a href='{{ profile.tw }}'><i class="fa fa-twitter" style="font-size:24px"></i></a>
-        </div> <!-- SIDENAV FOOTER -->
+         <a href='{{ profile.fb }}'><i class="fa fa-facebook-official" style="font-size:24px"></i></a>&emsp;<a href='{{ profile.ig }}'><i class="fa fa-instagram" style="font-size:24px"></i></a>&emsp;<a href='{{ profile.tw }}'><i class="fa fa-twitter" style="font-size:24px"></i></a>
+        </div>
 
         <div class="col-lg-2 col-md-3 col-sm-3 hidden-xs">
           <!-- Placeholder - keep empty -->
         </div>
 
-        <div id="main" class="col-lg-10 col-md-9 col-sm-9">
+        <!-- Main content -->
+        <div id="main" class="col-lg-10 col-md-9 col-sm-9 animate-in">
+          <div id="curtain"></div>
+
           {% block main_body %}
           {% endblock %}
         </div>
-    </div> <!-- ROW -->
-   </div>
+      </div>
+    </div>
+
+
   </body>
 </html>

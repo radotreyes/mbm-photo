@@ -91,6 +91,8 @@ div.sidebar i {
 
 .masonry-item {
   display: inline-block;
+  box-sizing: border-box;
+  border: 5px solid white;
   padding-left: .1em;
   padding-right: .1em;
   width: 100%;
@@ -102,7 +104,8 @@ div.sidebar i {
 .masonry-well {
   position: relative;
   display: block;
-  transition: .333s ease;
+  -webkit-animation: zoomOut .2s ease-out forwards;
+  animation: zoomOut .2s ease-out forwards;
 
   /* don't break container on zoom */
   -webkit-column-break-inside: avoid;
@@ -114,7 +117,27 @@ div.sidebar i {
 }
 
 .masonry-well:hover {
-  opacity: 0.5;
-  height: 110%;
-  transform: scale( 1.1 );
+  -webkit-animation: zoomIn .333s ease-in forwards;
+  animation: zoomIn .333s ease-in forwards;
+  z-index: 999;
+}
+
+@-webkit-keyframes zoomIn {
+  from { -webkit-transform: scale( 1 ); }
+  to { -webkit-transform: scale( 1.1 ); }
+}
+
+@keyframes zoomIn {
+  from { transform: scale( 1 ); }
+  to { transform: scale( 1.1 ); }
+}
+
+@-webkit-keyframes zoomOut {
+  from { -webkit-transform: scale( 1.1 ); }
+  to { -webkit-transform: scale( 1 ); }
+}
+
+@keyframes zoomOut {
+  from { transform: scale( 1.1 ); }
+  to { transform: scale( 1 ); }
 }
