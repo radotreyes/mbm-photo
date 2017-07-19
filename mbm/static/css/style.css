@@ -1,3 +1,6 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Inconsolata|Roboto+Condensed');
+
 /* body */
 @media ( min-width: 767px ) {
     #navigation {
@@ -7,8 +10,8 @@
 }
 
 body {
-  font-family: 'Merriweather Sans', sans-serif;
   font-family: 'Inconsolata', monospace;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 /* sidebar */
@@ -78,6 +81,23 @@ div.sidebar i {
   padding-left: 0;
 }
 
+.table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td {
+  padding: 2px;
+}
+
+.table {
+  margin: auto;
+}
+
+img.in-modal {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+img.ppic {
+  border-radius: 2%;
+}
+
 *, *:before, *:after {
   box-sizing:  border-box !important;
 }
@@ -123,21 +143,45 @@ div.sidebar i {
 }
 
 @-webkit-keyframes zoomIn {
-  from { -webkit-transform: scale( 1 ); }
-  to { -webkit-transform: scale( 1.1 ); }
+  from {
+    -webkit-transform: scale( 1 );
+    -webkit-opacity: 1;
+  }
+  to {
+    -webkit-transform: scale( 1.1 );
+    -webkit-opacity: 0.5;
+  }
 }
 
 @keyframes zoomIn {
-  from { transform: scale( 1 ); }
-  to { transform: scale( 1.1 ); }
+  from {
+    transform: scale( 1 );
+    opacity: 1;
+  }
+  to {
+    transform: scale( 1.1 );
+    opacity: 0.5;
+  }
 }
 
 @-webkit-keyframes zoomOut {
-  from { -webkit-transform: scale( 1.1 ); }
-  to { -webkit-transform: scale( 1 ); }
+  from {
+    -webkit-transform: scale( 1.1 );
+    -webkit-opacity: 0.5;
+  }
+  to {
+    -webkit-transform: scale( 1 );
+    -webkit-opacity: 1;
+  }
 }
 
 @keyframes zoomOut {
-  from { transform: scale( 1.1 ); }
-  to { transform: scale( 1 ); }
+  from {
+    transform: scale( 1.1 );
+    opacity: 0.5;
+  }
+  to {
+    transform: scale( 1 );
+    opacity: 1;
+  }
 }

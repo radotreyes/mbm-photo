@@ -6,7 +6,7 @@
   {% for image in images %}
     {% if image.frontpage %}
       <a href="{% url 'test_app:update' image.id %}" class="frontpage">
-        <img src="/media/{{ image.image }}" alt="...">
+        <img class="lazy" data-original="/media/{{ image.image }}" alt="...">
       </a>
     {% endif %}
   {% endfor %}

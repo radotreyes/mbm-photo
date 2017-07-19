@@ -54,18 +54,24 @@ class Logout( RedirectView ):
         logout( request )
         return super( Logout, self ).get( request, *args, **kwargs )
 
-class About( TemplateView ):
+class About( UpdateView ):
     title = 'about'
     template_name = 'test_app/about/index.html'
+    form_class = forms.UserProfileForm
+    model = models.UserProfile
+    success_url = settings.UPLOAD_SUCCESS_URL
 
     def get_context_data( self, **kwargs ):
         title = self.title
 
         data = super().get_context_data( **kwargs )
         data['title'] = title
+        data['loggedin'] = self.request.user.is_authenticated
         return data
 
-# class AboutUpdate( UpdateView ):
+    def get_success_url( self, **kwargs ):
+        return reverse( 'test_app:about',
+                        kwargs = { 'pk': self.kwargs['pk'] } )
 
 class Email( CreateView ):
     title = 'email'
@@ -147,7 +153,7 @@ class ImageCreate( CreateView ):
 
 class ImageUpdate( UpdateView ):
     template_name = 'test_app/img/details.html'
-    fields = ( 'title', 'category', 'frontpage')
+    fields = ( 'title', 'category', 'frontpage' )
     model = models.ImageUpload
 
     def get_success_url( self, **kwargs ):

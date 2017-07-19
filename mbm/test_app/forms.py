@@ -38,9 +38,13 @@ class EmailForm( BootstrapModelForm ):
             'placeholder': 'I love your work'
         })
 
+class UserProfileForm( BootstrapModelForm ):
+    class Meta():
+        model = models.UserProfile
+        fields = '__all__'
+
 class ImageUploadForm( BootstrapModelForm ):
     date = forms.DateField()
-    # widget = forms.SelectDateWidget( empty_label = ( 'year', 'month', 'day' ), ) 
 
     class Meta():
         model = models.ImageUpload

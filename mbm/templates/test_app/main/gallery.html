@@ -10,27 +10,43 @@
           <div class="masonry-well no-gutter">
             <div class="">
               <a href="#image-{{ image.id }}" data-toggle="modal">
-                <img class="gallery" src="/media/{{ image.image }}" alt="...">
+                <img class="gallery lazy" data-original="/media/{{ image.image }}" alt="...">
               </a>
             </div>
           </div> <!-- col-xs-6 col-md-4 -->
         </div>
 
         <div id="image-{{ image.id }}" class="modal fade" role="dialog">
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-body">
-                <img class="gallery" src="/media/{{ image.image }}" alt="...">
+                <div class="row">
+                  <div class="col-xs-8 col-xs-offset-2">
+                    <img class="gallery in-modal lazy" data-original="/media/{{ image.image }}" alt="...">
+                  </div>
+                </div>
               </div>
-              <div class="modal-footer">
-                <a href="{% url 'test_app:update' image.id %}">
-                  <button type="button" class="btn btn-primary"><small>MORE</small></button>
-                </a>
+
+              <div class="modal-footer text-centered">
+                <p>"<strong>{{ image.title }}</strong>" // Shot with {{ image.camera }}. <a href="{% url 'test_app:update' image.id %}"> more details</a></p>
               </div>
+
+              <!-- lazy load this modal -->
+              <script>
+                $( '#image-{{ image.id }}' ).on( 'show.bs.modal', function() {
+                    $( '.modal .modal-body' ).css( 'overflow-y', 'auto' );
+                    $( '.modal .modal-body' ).css( 'max-height', $( window ).height() * 0.9 );
+                    $( 'img.in-modal' ).css( 'max-height', $( window ).height() * 0.85 );
+                    $( 'img.in-modal' ).css( 'width', 'auto' );
+                } );
+
+                $( '#image-{{ image.id }}' ).on( 'shown.bs.modal', function() {
+                  $( 'img.lazy' ).lazyload();
+                } );
+              </script>
             </div>
           </div>
         </div>
-
       {% endif %}
     {% endfor %}
   </div>

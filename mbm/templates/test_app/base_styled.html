@@ -5,18 +5,10 @@
     <meta charset="utf-8">
     <title>silent: {{ title }}</title>
 
-    <!-- Bootstrap 3 -->
-    <!-- CSS -->
+    <!-- Bootstrap 3 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-    <!-- Custom stylesheet -->
+    <!-- Custom stylesheet and fonts -->
     <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
 
     <!-- SM buttons -->
@@ -25,14 +17,15 @@
     <!-- Google icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Date picker-->
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Date picker -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script>
-      $( function() {
-        $( "#datepicker" ).datepicker();
-      } );
-    </script>
+
   </head>
 
   <body>
@@ -43,13 +36,13 @@
        <!-- Main section -->
         <div id="navigation" class="sidebar col-lg-2 col-md-3 col-sm-3">
          <div class="logo">
-           <h2><strong><a href="{% url 'test_app:index' %}">im silent</a></strong></h2>
+           <h2><strong><a href="{% url 'test_app:index' %}">i'm silent</a></strong></h2>
          </div>
          <h5>photography</h5><br><br>
            <strong>
            <a href="{% url 'test_app:portrait' %}">portrait</a><br><br>
            <a href="{% url 'test_app:landscape' %}">landscape</a><br><br>
-           <a href="{% url 'test_app:about' %}">about me</a><br><br>
+           <a href="{% url 'test_app:about' profile.id %}">about me</a><br><br>
            {% if user.is_authenticated %}
               <br><p>hello, {{ user.username }}</p>
               <a href="{% url 'test_app:upload' %}" class="btn btn-default navbar-btn">upload</a>&nbsp;
@@ -60,8 +53,18 @@
         </div>
 
        <!-- Footer -->
-        <div class="sidebar-footer sidebar col-lg-2 col-md-3 col-sm-3">
-         <a href='{{ profile.fb }}'><i class="fa fa-facebook-official" style="font-size:24px"></i></a>&emsp;<a href='{{ profile.ig }}'><i class="fa fa-instagram" style="font-size:24px"></i></a>&emsp;<a href='{{ profile.tw }}'><i class="fa fa-twitter" style="font-size:24px"></i></a>
+        <div class="sidebar-footer sidebar col-lg-2 col-md-3 col-sm-3 hidden-xs">
+         <a href='{{ profile.fb }}'>
+           <i class="fa fa-facebook-official" style="font-size:24px"></i>
+         </a>
+         &emsp;
+         <a href='{{ profile.ig }}'>
+           <i class="fa fa-instagram" style="font-size:24px"></i>
+         </a>
+         &emsp;
+         <a href='{{ profile.tw }}'>
+           <i class="fa fa-twitter" style="font-size:24px"></i>
+         </a>
         </div>
 
         <div class="col-lg-2 col-md-3 col-sm-3 hidden-xs">
@@ -69,15 +72,29 @@
         </div>
 
         <!-- Main content -->
-        <div id="main" class="col-lg-10 col-md-9 col-sm-9 animate-in">
-          <div id="curtain"></div>
-
+        <div id="main" class="col-lg-10 col-md-9 col-sm-9">
           {% block main_body %}
           {% endblock %}
         </div>
       </div>
     </div>
 
+    <!-- Bootstrap 3 JavaScript-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <!-- Date picker -->
+    <script>
+      $( function() {
+        $( "#datepicker" ).datepicker();
+      } );
+    </script>
+
+    <!-- Lazy Load -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+    <script>
+      $( 'img.lazy' ).lazyload( {
+        effect: 'fadeIn',
+      } );
+    </script>
   </body>
 </html>

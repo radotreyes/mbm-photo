@@ -3,55 +3,178 @@
 {% load staticfiles %}
 
 {% block main_body %}
-<div class="row">
-  <br><br>
-</div>
   <div class="container-fluid">
-    <div class="col-xs-8 col-xs-offset-2">
-      <div class="jumbotron col-xs-6">
-        <h2>Mary Medovich<br>&emsp;
-        <small><em>i'm silent</em> photography</small></h2>
-        <br>
-        <a href="#" class="thumbnail"><img src="/media/{{ profile.ppic }}" alt=""></a>
+    <div class="col-xs-10 col-xs-offset-1">
+      <br>
+      <div class="col-md-6 col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img class="ppic" src="/media/{{ profile.ppic }}" alt="">
+          </div>
+
+          <div class="panel-footer text-center">
+            <h4>Mary Medovich<small> // student // powerlifter // photographer</small></h4>
+          </div>
+        </div>
       </div>
 
-      <div class="col-xs-6">
+      <div class="col-md-6 col-xs-12">
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading text-center">
             <small>WHO AM I?</small>
           </div>
           <div class="panel-body">
-            <p>{{ profile.desc }}</p>
+            <p>{{ profile.desc|linebreaks }}</p>
           </div>
+
         </div>
 
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading text-center">
             <small>FIND ME ON SOCIAL MEDIA:</small>
           </div>
+
           <div class="panel-body">
-            <table class="table-condensed">
-              <tr><td><small><a href='{{ profile.fb }}'><i class="fa fa-facebook-official" style="font-size:24px"></i></a></small></td>
-                  <td>{{ profile.fb_handle }}</td>
-              </tr>
-              <tr><td><small><a href='{{ profile.ig }}'><i class="fa fa-instagram" style="font-size:24px"></i></a></small></td>
-                  <td>{{ profile.ig_handle }}</td>
-              </tr>
-              <tr><td><small><a href='{{ profile.tw }}'><i class="fa fa-twitter" style="font-size:24px"></i></a></small></td>
-                  <td>{{ profile.tw_handle }}</td>
-              </tr>
-            </table>
+            <div class="col-xs-12">
+              <table class="table-condensed">
+                <tr>
+                  <td class="text-right">
+                    <small><a href='{{ profile.fb }}'>
+                      <i class="fa fa-facebook-official" style="font-size:24px"></i>
+                    </a></small>
+                  </td>
+                  <td>
+                    &emsp;{{ profile.fb_handle }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-right">
+                    <small><a href='{{ profile.ig }}'>
+                      <i class="fa fa-instagram" style="font-size:24px"></i>
+                    </a></small>
+                  </td>
+                  <td>
+                    &emsp;{{ profile.ig_handle }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-right">
+                    <small><a href='{{ profile.tw }}'>
+                      <i class="fa fa-twitter" style="font-size:24px"></i>
+                    </a></small>
+                  </td>
+                  <td>
+                    &emsp;{{ profile.tw_handle }}
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
 
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading text-center">
             <small>FIND ME IN GENERAL:</small>
           </div>
-          <div class="panel-body">
-            <button type="button" class="btn btn-primary"><small>RESUME/CV</small></button>
-            <a href="{% url 'test_app:email' %}"><button type="button" class="btn btn-default"><small>CONTACT ME</small></button></a>
-            <button type="button" class="btn btn-default"><small>SITE INFO</small></small></button>
+
+          <div class="panel-body text-center">
+            <button type="button" class="btn btn-primary">
+              <small>RESUME/CV</small>
+            </button>
+            <a href="{% url 'test_app:email' %}">
+              <button type="button" class="btn btn-default">
+                <small>CONTACT ME</small>
+              </button>
+            </a>
+            <button type="button" class="btn btn-default">
+              <small>SITE INFO</small>
+            </button>
+
+            {% if loggedin %}
+              <a href="#modalUpdateProfile" data-toggle="modal">
+                <button type="button" class="btn btn-warning" name="button"><small>UPDATE PROFILE</small></button>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modalUpdateProfile" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="text-center">Update Profile</h1>
+          </div>
+          <div class="modal-body">
+            <form method="POST" enctype="multipart/form-data">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="id_ppic">Profile picture:</label>
+                    <p>{{ form.ppic }}</p>
+                  </div>
+                </div>
+              </div> <!-- r1 -->
+
+              <div class="row">
+                <div class="col-md-6 col-xs-12">
+                  <div class="form-group">
+                    <label for="id_city">City:</label>
+                    <p>{{ form.city }}</p>
+                    <label for="id_state">State:</label>
+                    <p>{{ form.state }}</p>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="id_desc">About me:</label>
+                    {{ form.desc }}
+                  </div>
+                </div> <!-- r2c1 -->
+
+                <div class="col-md-6 col-xs-12">
+                  <div class="form-group">
+                    <label for="id_fb_handle">Facebook:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">@</span>
+                      <p>{{ form.fb_handle }}</p>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">Profile URL</span>
+                      <p>{{ form.fb }}</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="id_ig_handle">Instagram:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">@</span>
+                      <p>{{ form.ig_handle }}</p>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">Profile URL</span>
+                      <p>{{ form.ig }}</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                  <label for="id_tw_handle">Twitter:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">@</span>
+                      <p>{{ form.tw_handle }}</p>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">Profile URL</span>
+                      <p>{{ form.tw }}</p>
+                    </div>
+                  </div>
+
+                  <input type="submit" class="btn btn-primary" name="" value="Save changes">
+                </div> <!-- r2c2 -->
+              </div> <!-- r2 -->
+
+              {% csrf_token %}
+            </form>
           </div>
         </div>
       </div>

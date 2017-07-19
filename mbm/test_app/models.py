@@ -56,12 +56,12 @@ class UserProfile( models.Model ):
     city = models.CharField( max_length = 20 )
     state = models.CharField( max_length = 2 )
     fb = models.URLField( verbose_name = 'Facebook URL' )
-    fb_handle = models.CharField( default = 'handle', max_length = 100, verbose_name = 'Facbeook name' )
+    fb_handle = models.CharField( default = 'handle', max_length = 100, verbose_name = 'Facebook name' )
     ig = models.URLField( verbose_name = 'Instagram' )
     ig_handle = models.CharField( default = 'handle', max_length = 100, verbose_name = 'Instagram handle' )
     tw = models.URLField( verbose_name = 'Twitter' )
     tw_handle = models.CharField( default = 'handle', max_length = 100, verbose_name = 'Twitter handle' )
-    desc = models.TextField( max_length = 3000 )
+    desc = models.TextField( max_length = 3000, verbose_name = 'About me' )
 
     def __str__( self ):
         return 'user profile'
@@ -70,16 +70,3 @@ class UserProfile( models.Model ):
 def mymodel_delete( sender, instance, **kwargs ):
     # Pass false so FileField doesn't save the model.
     instance.image.delete( False )
-
-# class ImageUploadAdmin(admin.ModelAdmin):
-#     # Add it to the list view:
-#     list_display = ( 'title', 'id', )
-#     # Add it to the details view:
-#     read_only_fields = ( 'id', )
-#     #
-#     # def image_id(self, obj):
-#     #     return mark_safe('<a href="{}">{}</a>'.format(
-#     #         reverse("admin:auth_user_change", args=(obj.user.pk,)),
-#     #         obj.user.email
-#     #     ))
-#     # user_link.short_description = 'user'
