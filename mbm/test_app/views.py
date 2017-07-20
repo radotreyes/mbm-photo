@@ -26,7 +26,11 @@ class Login( FormView ):
     template_name = 'test_app/login/index.html'
     form_class = AuthenticationForm
     redirect_field_name = REDIRECT_FIELD_NAME
+<<<<<<< HEAD
     success_url = reverse_lazy( 'test_app:index.html' ).
+=======
+    success_url = reverse_lazy( 'test_app:index' )
+>>>>>>> 012852738c6cf0fd0b62aff480a5a109360063f8
 
     def get_context_data( self, **kwargs ):
         title = self.title
@@ -47,7 +51,7 @@ class Login( FormView ):
             return self.form_invalid( form )
 
 class Logout( RedirectView ):
-    url = settings.LOGIN_REDIRECT_URL
+    url = reverse_lazy( 'test_app:index' )
 
     @method_decorator( login_required )
     def get( self, request, *args, **kwargs ):
@@ -78,7 +82,7 @@ class Email( CreateView ):
     form_class = forms.EmailForm
     model = models.EmailRequest
     template_name = 'test_app/about/email.html'
-    success_url = settings.UPLOAD_SUCCESS_URL
+    success_url = reverse_lazy( 'test_app:index' )
 
     def get_context_data( self, **kwargs ):
         title = self.title
@@ -133,7 +137,7 @@ class ImageCreate( CreateView ):
     title = 'new'
     form_class = forms.ImageUploadForm
     template_name = 'test_app/upload/index.html'
-    success_url = settings.UPLOAD_SUCCESS_URL
+    success_url = reverse_lazy( 'test_app:index' )
     # success_message = 'Image uploaded!'
 
     def get_context_data( self, **kwargs ):

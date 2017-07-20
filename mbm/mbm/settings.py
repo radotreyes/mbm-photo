@@ -25,9 +25,13 @@ MEDIA_DIR = os.path.join( BASE_DIR, "media" )
 SECRET_KEY = 'bloro+6lz5zoz%!$s=nmr+m*fdrx2#$-*lhiye(c6u3ks0&z_o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = [ 'radotreyes.pythonanywhere.com' ]
+=======
+ALLOWED_HOSTS = [ 'localhost', '127.0.0.1', '[::1]' ]
+>>>>>>> 012852738c6cf0fd0b62aff480a5a109360063f8
 
 
 # Application definition
