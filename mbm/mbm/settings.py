@@ -27,7 +27,7 @@ SECRET_KEY = 'bloro+6lz5zoz%!$s=nmr+m*fdrx2#$-*lhiye(c6u3ks0&z_o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'radotreyes.pythonanywhere.com' ]
 
 
 # Application definition
