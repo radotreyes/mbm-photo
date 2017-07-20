@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block main_body %}
-  <div class="masonry-grid">
+  <div class="masonry-grid container">
     {% for image in images %}
       {% if image.category == category %}
         <div class="masonry-item">
