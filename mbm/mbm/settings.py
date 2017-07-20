@@ -136,10 +136,12 @@ UPLOAD_SUCCESS_URL = '/'
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 if not DEBUG:
     STATIC_ROOT = '/home/radotreyes/mbm-photo/mbm/static'
+else:
+    STATICFILES_DIRS = [
+       STATIC_DIR,
+    ]
+
 STATIC_URL = '/static/'
-#STATICFILES_DIRS = [
-#    STATIC_DIR,
-#]
 
 # Media files
 MEDIA_ROOT = MEDIA_DIR

@@ -62,6 +62,7 @@ class UserProfile( models.Model ):
     tw = models.URLField( verbose_name = 'Twitter' )
     tw_handle = models.CharField( default = 'handle', max_length = 100, verbose_name = 'Twitter handle' )
     desc = models.TextField( max_length = 3000, verbose_name = 'About me' )
+    cv = models.URLField( default = 'http://google.com', verbose_name = 'Link to resume/CV' )
 
     def __str__( self ):
         return 'user profile'
