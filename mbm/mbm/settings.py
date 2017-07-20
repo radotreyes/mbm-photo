@@ -25,13 +25,9 @@ MEDIA_DIR = os.path.join( BASE_DIR, "media" )
 SECRET_KEY = 'bloro+6lz5zoz%!$s=nmr+m*fdrx2#$-*lhiye(c6u3ks0&z_o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-<<<<<<< HEAD
-ALLOWED_HOSTS = [ 'radotreyes.pythonanywhere.com' ]
-=======
-ALLOWED_HOSTS = [ 'localhost', '127.0.0.1', '[::1]' ]
->>>>>>> 012852738c6cf0fd0b62aff480a5a109360063f8
+ALLOWED_HOSTS = [ 'radotreyes.pythonanywhere.com', "localhost", "192.168.0.121", "127.0.0.1" ]
 
 
 # Application definition
@@ -138,10 +134,12 @@ UPLOAD_SUCCESS_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
+if not DEBUG:
+    STATIC_ROOT = '/home/radotreyes/mbm-photo/mbm/static'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    STATIC_DIR,
-]
+#STATICFILES_DIRS = [
+#    STATIC_DIR,
+#]
 
 # Media files
 MEDIA_ROOT = MEDIA_DIR

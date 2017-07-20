@@ -26,11 +26,7 @@ class Login( FormView ):
     template_name = 'test_app/login/index.html'
     form_class = AuthenticationForm
     redirect_field_name = REDIRECT_FIELD_NAME
-<<<<<<< HEAD
-    success_url = reverse_lazy( 'test_app:index.html' ).
-=======
     success_url = reverse_lazy( 'test_app:index' )
->>>>>>> 012852738c6cf0fd0b62aff480a5a109360063f8
 
     def get_context_data( self, **kwargs ):
         title = self.title
