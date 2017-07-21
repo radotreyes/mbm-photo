@@ -1,7 +1,10 @@
-# I'm Silent Photography
-#### [imsilentphotography.net](http://imsilentphotography.net)
+# I'm Silent Photography ([imsilentphotography.net](http://imsilentphotography.net))
 ## Summary:
 Photography portfolio website. Designed front-end with Bootstrap, jQuery. Django back-end to handle and serve media uploads based on category and sorting fields, forgoing pre-built CMS.
+
+## Version History:
+##### [1.0]
+- Initial deployment
 
 ## About:
 Mary Medovich (Instagram: @imsilentphotography) is a freelance photographer based out of Tampa, FL.
